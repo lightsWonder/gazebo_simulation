@@ -64,7 +64,7 @@
   </xacro:macro>
 
 
-  <xacro:macro name="Livox_HORIZON" params="visualize:=True name:=livox">
+  <xacro:macro name="Livox_HORIZON" params="visualize:=True name:=livox parent:=base_link">
     <link name="${name}_base">
       <xacro:null_inertial/>
       <visual> 
@@ -89,6 +89,12 @@
       <parent link="${name}_base"/>
       <child link="${name}"/>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+    </joint>
+
+    <joint name="${name}_base_to_parent_joint" type="fixed">
+        <parent link="${parent}" />
+        <child link="${name}_base" />
+        <origin rpy="0 0 0" xyz="0.05 0.0 0.0" />
     </joint>
     <xacro:Livox_Mid_gazebo_sensor name="${name}" visualize="${visualize}"/>
   </xacro:macro>

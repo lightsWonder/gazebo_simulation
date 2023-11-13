@@ -63,7 +63,7 @@
           <origin xyz="0 0 ${support_length/2}" rpy="0 0 0" />
     </xacro:VLP-16> -->
     <xacro:include filename="$(find livox_laser_simulation)/urdf/livox_avia.xacro" />
-    <xacro:Livox_AVIA name="livox" parent="support" />
+    <xacro:Livox_Mid40 name="livox" parent="support" />
     <!-- IMU 模块 -->
     <xacro:include filename="$(find scout_gazebo)/urdf/imu.xacro" />
     <xacro:imu sensor_name="imu" parent_link="base_link">
