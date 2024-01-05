@@ -69,7 +69,7 @@
             <visual>
                 <origin xyz="0.00 0 0.0" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://livox_laser_simulation/meshes/livox_mid40.dae">
+                    <mesh filename="package://livox_laser_simulation/meshes/livox_HAP.dae">
                     </mesh>
                 </geometry>
             </visual>
@@ -78,7 +78,7 @@
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
                     <mesh
-                        filename="package://livox_laser_simulation/meshes/livox_mid40.dae">
+                        filename="package://livox_laser_simulation/meshes/livox_HAP.dae">
                     </mesh>
                 </geometry>
             </collision>
@@ -90,13 +90,13 @@
         <joint name="${name}_to_${name}_base_joint" type="fixed">
             <parent link="${name}_base" />
             <child link="${name}" />
-            <origin rpy="0 0 0" xyz="0.0 0.0 1.6" />
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0" />
         </joint>
 
         <joint name="${name}_base_to_parent_joint" type="fixed">
             <parent link="${parent}" />
             <child link="${name}_base" />
-            <origin rpy="0 0 0" xyz="0.05 0.0 0.0" />
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0" />
         </joint>
         <xacro:Livox_Mid_gazebo_sensor name="${name}" visualize="${visualize}" />
     </xacro:macro>

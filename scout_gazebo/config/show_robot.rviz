@@ -28,7 +28,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud
+    SyncSource: ""
   - Class: rviz_plugin_tutorials/Teleop
     Name: Teleop
     Topic: /cmd_vel
@@ -173,7 +173,7 @@ Visualization Manager:
         inertial_link:
           Value: false
         livox:
-          Value: false
+          Value: true
         livox_base:
           Value: true
         odom:
