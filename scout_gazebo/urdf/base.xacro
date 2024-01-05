@@ -64,16 +64,16 @@
           <origin xyz="0 0 ${support_length/2}" rpy="0 0 0" />
     </xacro:VLP-16> -->
     <!-- 车载120°激光雷达 -->
-    <xacro:include filename="$(find velodyne_description)/urdf/Lidar.urdf.xacro" />
+    <!-- <xacro:include filename="$(find velodyne_description)/urdf/Lidar.urdf.xacro" />
     <xacro:Lidar parent="support" name="lidar" topic="/scan" hz="10"
         organize_cloud="${organize_cloud}" gpu="${gpu}"
         samples="480" min_horizonal_angle="-${60.0*M_PI/180.0}" max_horizonal_angle="${60.0*M_PI/180.0}"
         lasers="96" min_vertical_angle="-${12.5*M_PI/180.0}" max_vertical_angle="${12.5*M_PI/180.0}">
         <origin xyz="0 0 0.0" rpy="0 0 0" />
-    </xacro:Lidar>
+    </xacro:Lidar> -->
     <!-- Livox Avia激光雷达 -->
-    <!-- <xacro:include filename="$(find livox_laser_simulation)/urdf/livox_avia.xacro" />
-    <xacro:Livox_AVIA name="livox" parent="support" /> -->
+    <xacro:include filename="$(find livox_laser_simulation)/urdf/livox_mid360.xacro" />
+    <xacro:Livox_Mid360 name="livox" parent="support" />
     <!-- IMU 模块 -->
     <xacro:include filename="$(find scout_gazebo)/urdf/imu.xacro" />
     <xacro:imu sensor_name="imu" parent_link="base_link">

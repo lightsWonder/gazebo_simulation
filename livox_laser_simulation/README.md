@@ -2,30 +2,34 @@
 A package to provide plug-in for [Livox Series LiDAR](https://www.livoxtech.com).
 
 ## Requirements
-- ROS(=Melodic)
-- Gazebo (= 9.x, http://gazebosim.org/)
-- Ubuntu(=18.04)
+- ROS(=Kinectic/Melodic)
+- Gazebo (= 7.0/9.0)
 
 ## Results
-- avia
+![](resources/total.gif)
 
-![](resources/avia.gif)
-- mid40
+## Branchs
 
-![](resources/mid40.gif)
-- mid70
+### main branch
+- enviroment: ROS kinetic + gazebo7
+- pointcloud type: 
+  - sensor_msg::pointcloud
+  - sensor_msg::pointcloud2(pcl::Pointcloud\<pcl::PointXYZ\>)
+  - sensor_msg::pointcloud2(pcl::Pointcloud\<pcl::LivoxPointXyzrtl\>)
+  - livox_ros_driver::CustomMsg
+  <!-- - livox_ros_driver::CustomMsg -->
 
-![](resources/mid70.gif)
-- tele
+### gazebo9
+- enviroment: ROS melodic + gazebo7
+- pointcloud type: sensor_msg::pointcloud2(pcl::Pointcloud\<pcl::PointXYZ\>)
 
-![](resources/tele.gif)
-- horizon
+## Dependence
 
-![](resources/horizon.gif)
+- [livox_ros_driver](https://github.com/Livox-SDK/livox_ros_driver)
 
 ## Usage
 
-> Note that the version of gazebo in main branch is gazebo 9.18. If you use gazebo 7, checkout to "gazebo7" branch.
+> If you use gazebo 9, checkout to "gazebo-9-ver" branch. The gazebo-9 version is maintained by [jp-ipu](https://github.com/jp-ipu).
 
 Before you write your urdf file by using this plugin, catkin_make/catkin build is needed.
 
@@ -33,20 +37,23 @@ A simple demo is shown in livox_simulation.launch
 
 Run 
 ```
-    roslaunch livox_laser_simulation livox_simulation.launch
+    roslauch livox_laser_simulation livox_simulation.launch
 ```
 to see.
 
-We can choose the lidar model by selecting different CSV file in scan_mode dir from changing the launch file:
-- HAP.csv
-- mid360.csv
+Change sensor by change the following lines in the robot.xacro into another xacro file.
+```xml
+  <xacro:include filename="$(find livox_laser_simulation)/urdf/livox_horizon.xacro"/>
+  <Livox_Horizon name="livox" visualize="true" publish_pointcloud_type="2"/>
+```
+
 - avia.csv
 - horizon.csv
 - mid40.csv
 - mid70.csv
 - tele.csv
 
-## Parameters(only for display , and example by avia)
+## Parameters(example by avia)
 
 - laser_min_range: 0.1  // min detection range
 - laser_max_range: 200.0  // max detection range
@@ -55,5 +62,11 @@ We can choose the lidar model by selecting different CSV file in scan_mode dir f
 - ros_topic: scan // topic in ros
 - samples: 24000  // number of points in each scan loop
 - downsample: 1 // we can increment this para to decrease the consumption
+- publish_pointcloud_type: 0 // 0 for sensor_msgs::PointCloud, 1 for sensor_msgs::Pointcloud2(PointXYZ), 2 for sensor_msgs::PointCloud2(LivoxPointXyzrtl) 3 for livox_ros_driver::CustomMsg.
 
-### Thanks to LvFengchi and CaoMing(https://github.com/EpsAvlc) for the help of this repository！
+## Simulation for mapping
+Currently [Fast-LIO](https://github.com/hku-mars/FAST_LIO) is tested when publish_pointcloud_type = 3。
+
+Enjoy it and feel free to report bugs.
+
+> This repository is now maintained by [EpsAvlc](https://github.com/EpsAvlc) and LvFengchi.

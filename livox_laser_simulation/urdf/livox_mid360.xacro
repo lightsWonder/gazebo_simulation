@@ -7,6 +7,7 @@
     <xacro:property name="ros_topic" value="scan" />
     <xacro:property name="samples" value="24000" />
     <xacro:property name="downsample" value="1" />
+    <xacro:property name="publish_pointcloud_type" value="1"/>
 
     <xacro:macro name="null_inertial">
         <inertial>
@@ -16,7 +17,7 @@
                 izz="0.01" />
         </inertial>
     </xacro:macro>
-    <xacro:macro name="Livox_Mid_gazebo_sensor"
+    <xacro:macro name="Livox_gazebo_sensor"
         params="visualize:=True update_rate:=10 resolution:=0.002 noise_mean:=0.0 noise_stddev:=0.01 name:=livox">
         <gazebo reference="${name}">
             <sensor type="ray" name="laser_${name}">
@@ -56,6 +57,7 @@
                     <downsample>${downsample}</downsample>
                     <csv_file_name>package://livox_laser_simulation/scan_mode/mid360.csv</csv_file_name>
                     <ros_topic>${ros_topic}</ros_topic>
+                    <publish_pointcloud_type>${publish_pointcloud_type}</publish_pointcloud_type>
                     <frame_name>${name}</frame_name>
                 </plugin>
             </sensor>
@@ -63,7 +65,7 @@
     </xacro:macro>
 
 
-    <xacro:macro name="Livox_Mid40" params="visualize:=True name:=livox parent:=base_link">
+    <xacro:macro name="Livox_Mid360" params="visualize:=True name:=livox parent:=base_link">
         <link name="${name}_base">
             <xacro:null_inertial />
             <visual>
@@ -98,6 +100,7 @@
             <child link="${name}_base" />
             <origin rpy="0 0 0" xyz="0.0 0.0 0.0" />
         </joint>
-        <xacro:Livox_Mid_gazebo_sensor name="${name}" visualize="${visualize}" />
+
+        <xacro:Livox_gazebo_sensor name="${name}" visualize="${visualize}" />
     </xacro:macro>
 </robot>

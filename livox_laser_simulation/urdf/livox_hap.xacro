@@ -5,32 +5,33 @@
     <xacro:property name="laser_min_range" value="0.1" />
     <xacro:property name="laser_max_range" value="200.0" />
     <!-- 水平FOV，度为单位 -->
-    <xacro:property name="horizontal_fov" value="38.4" />
+    <xacro:property name="horizontal_fov" value="120" />
     <!-- 垂直上下限角，度为单位 -->
-    <xacro:property name="min_vertical_angle" value="-${38.4/2}" />
-    <xacro:property name="max_vertical_angle" value="${38.4/2}" />
+    <xacro:property name="min_vertical_angle" value="-${25.0/2}" />
+    <xacro:property name="max_vertical_angle" value="${25.0/2}" />
     <xacro:property name="ros_topic" value="scan" />
-    <xacro:property name="samples" value="10000"/>
+    <xacro:property name="samples" value="45300" />
     <xacro:property name="downsample" value="1" />
     <xacro:property name="publish_pointcloud_type" value="1"/>
-    <xacro:property name="csv_file_name" value="package://livox_laser_simulation/scan_mode/mid40.csv"/>
+    <xacro:property name="csv_file_name" value="package://livox_laser_simulation/scan_mode/HAP.csv"/>
 
     <xacro:include filename="$(find livox_laser_simulation)/urdf/livox_gazebo_sensor.xacro"/>
-    <xacro:macro name="Livox_Mid40" params="visualize:=True name:=livox parent:=base_link publish_pointcloud_type:=1" >
+    <xacro:macro name="Livox_Hap" params="visualize:=True name:=livox parent:=base_link">
         <link name="${name}_base">
             <xacro:null_inertial />
             <visual>
-                <origin xyz="0.045 0 0.04" rpy="0 0 0" />
+                <origin xyz="0.00 0 0.0" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://livox_laser_simulation/meshes/livox_mid40.dae">
+                    <mesh filename="package://livox_laser_simulation/meshes/livox_HAP.dae">
                     </mesh>
                 </geometry>
             </visual>
 
             <collision>
-                <origin xyz="0.045 0 0.04" rpy="0 0 0" />
+                <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://livox_laser_simulation/meshes/livox_mid40.dae">
+                    <mesh
+                        filename="package://livox_laser_simulation/meshes/livox_HAP.dae">
                     </mesh>
                 </geometry>
             </collision>
@@ -42,7 +43,7 @@
         <joint name="${name}_to_${name}_base_joint" type="fixed">
             <parent link="${name}_base" />
             <child link="${name}" />
-            <origin rpy="0 0 0" xyz="0.0 0.0 0.04" />
+            <origin rpy="0 0 0" xyz="0.0 0.0 0.0" />
         </joint>
 
         <joint name="${name}_base_to_parent_joint" type="fixed">
@@ -50,7 +51,6 @@
             <child link="${name}_base" />
             <origin rpy="0 0 0" xyz="0.0 0.0 0.0" />
         </joint>
-
         <xacro:Livox_gazebo_sensor name="${name}" visualize="${visualize}" publish_pointcloud_type="${publish_pointcloud_type}" />
     </xacro:macro>
 </robot>
